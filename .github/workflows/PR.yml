@@ -16,7 +16,7 @@ jobs:
           #ssh-key: '' # TODO:?
           # Relative path under $GITHUB_WORKSPACE to place the repository
       - name: install dependencies
-        run: go install github.com/vektra/mockery/v2@v2.52.3
+        run: go install github.com/vektra/mockery/v2@v2.53.3
       - name: generate-mocks
         run: go generate ./...
         working-directory: goUtils
