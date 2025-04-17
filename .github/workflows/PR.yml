@@ -1,0 +1,31 @@
+name: PR Commit
+run-name: PR - ${{ github.ref }} - "${{ github.sha }}"
+on:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:1.24.0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: '' # TODO: FIX
+          ssh-key: '' # TODO:?
+          # Whether to configure the token or SSH key with the local git config
+          # Default: true
+          persist-credentials: '' # TODO: ?
+          # Relative path under $GITHUB_WORKSPACE to place the repository
+          path: 'goUtils' # TODO: ?
+      - name: vet
+        run: go vet ./...
+        working-directory: goUtils
+      - name: test
+        run: go test ./...
+        working-directory: goUtils
+      - name: lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: 'v1.64.5'
+          working-directory: goUtils
