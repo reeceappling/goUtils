@@ -2,7 +2,7 @@ package awsclient
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	awsConfig "github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	"github.com/reeceappling/goUtils/v2/logging"
@@ -60,7 +60,7 @@ func NewLocalFirstSecretsManagerClient(ctx context.Context) (CachingSecretsManag
 	environment := ctxUtils.GetStringFromContext(ctx, ctxUtils.Environment)
 
 	if environment == "" {
-		return CachingSecretsManagerClient{}, fmt.Errorf("environment not set")
+		return CachingSecretsManagerClient{}, errors.New("environment not set")
 	}
 
 	cloudClient, err := NewCloudSecretsManagerClient(ctx)
@@ -86,11 +86,11 @@ func (csm CachingSecretsManagerClient) GetSecretValue(ctx context.Context, param
 		return output, err
 	}
 	if params != nil && params.SecretId != nil {
-		err = os.MkdirAll(path.Dir(path.Join(csm.directory, *params.SecretId)), 0777)
+		err = os.MkdirAll(path.Dir(path.Join(csm.directory, *params.SecretId)), 0777) //nolint:gosec
 		if err != nil {
 			logging.GetSugaredLogger(ctx).Errorw("Failed to cache secret value", "err", err)
 		} else {
-			err = os.WriteFile(path.Join(csm.directory, *params.SecretId), []byte(*output.SecretString), 0777)
+			err = os.WriteFile(path.Join(csm.directory, *params.SecretId), []byte(*output.SecretString), 0777) //nolint:gosec
 			if err != nil {
 				logging.GetSugaredLogger(ctx).Errorw("Failed to cache secret value", "err", err)
 			}

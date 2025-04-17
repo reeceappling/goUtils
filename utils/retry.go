@@ -15,7 +15,7 @@ func Jitter() time.Duration {
 	return jitter(500, 1000)
 }
 func jitter(min, maxExtra int) time.Duration {
-	return time.Duration(min+rand.Intn(maxExtra)) * time.Millisecond
+	return time.Duration(min+rand.Intn(maxExtra)) * time.Millisecond //nolint:gosec
 }
 func Retry[T any](f func() (T, error)) (t T, err error) {
 	return RetryTimes(10, f)

@@ -92,7 +92,7 @@ func (lc LocalS3Client) ListObjectsV2(ctx context.Context, input *s3.ListObjects
 
 func (lc LocalS3Client) GetObject(ctx context.Context, input *s3.GetObjectInput, options ...func(*s3.Options)) (*s3.GetObjectOutput, error) {
 	itemPath := path.Join(lc.getRedirect(*input.Bucket), *input.Key)
-	fileContents, err := os.ReadFile(itemPath)
+	fileContents, err := os.ReadFile(itemPath) //nolint:gosec
 	if err != nil {
 		if _, ok := err.(*os.PathError); ok {
 			return nil, errorreference.ErrorNotFound
@@ -114,11 +114,11 @@ func (lc LocalS3Client) PutObject(ctx context.Context, input *s3.PutObjectInput,
 	if err != nil {
 		return nil, err
 	}
-	err = os.MkdirAll(path.Dir(itemPath), 0777)
+	err = os.MkdirAll(path.Dir(itemPath), 0777) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}
-	err = os.WriteFile(itemPath, contents, 0777)
+	err = os.WriteFile(itemPath, contents, 0777) //nolint:gosec
 	if err != nil {
 		return nil, err
 	}

@@ -52,7 +52,7 @@ func (fw inMemoryFileWriter) GetZippedBytes() ([]byte, error) {
 // if no error occurred.
 func (fw inMemoryFileWriter) WriteZippedBytes(w io.Writer) error {
 	zipper := zip.NewWriter(w)
-	defer zipper.Close()
+	defer zipper.Close() //nolint:errcheck
 	for filePath, data := range fw {
 		fileZipper, err := zipper.Create(filePath)
 		if err != nil {

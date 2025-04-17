@@ -268,7 +268,7 @@ func TestS3FileReaderList(t *testing.T) {
 				if i < 4 {
 					return nil, errorreference.ErrorSlowDown
 				}
-				key := "/dirName/"
+				key := "/dirName/" //nolint:goconst
 				return &s3.ListObjectsV2Output{IsTruncated: utils.Pointer(false), Contents: []types.Object{{Key: &key}}}, nil
 			},
 		}

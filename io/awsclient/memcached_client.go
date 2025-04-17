@@ -64,7 +64,7 @@ func init() {
 		if v, err := awsparamstore.OpenVariableV2(client, varName, runtimevar.StringDecoder, &options); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "failed to watch memcached endpoint param")
 		} else {
-			defer v.Close()
+			defer v.Close() //nolint:errcheck
 			for {
 				snapShot, err := v.Watch(context.Background())
 				if err != nil {

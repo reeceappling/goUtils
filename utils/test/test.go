@@ -157,7 +157,7 @@ func (tClient LocalS3Client) ListObjectsV2(ctx context.Context, input *s3.ListOb
 
 func (tClient LocalS3Client) GetObject(ctx context.Context, input *s3.GetObjectInput, options ...func(*s3.Options)) (*s3.GetObjectOutput, error) {
 	itemPath := path.Join(tClient.getRedirect(*input.Bucket), *input.Key)
-	fileContents, err := os.ReadFile(itemPath)
+	fileContents, err := os.ReadFile(itemPath) //nolint:gosec
 	if err != nil {
 		if strings.Contains(err.Error(), "no such file or directory") {
 			return nil, errorreference.ErrorNotFound

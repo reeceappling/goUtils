@@ -20,7 +20,7 @@ func GetTaskMetadata() (TaskMetadata, error) {
 	if err != nil {
 		return TaskMetadata{}, err
 	}
-	defer fetch.Body.Close()
+	defer fetch.Body.Close() //nolint:errcheck
 	jsonBody, err := io.ReadAll(fetch.Body)
 	if err != nil {
 		return TaskMetadata{}, err

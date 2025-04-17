@@ -60,7 +60,7 @@ func backgroundRead(ctx context.Context, path string, reader *S3FileReader) <-ch
 			out <- utils.ErrAnd[[]byte]{Err: err}
 			return
 		}
-		defer r.Close()
+		defer r.Close() //nolint:errcheck
 		output := make([]byte, contentLength)
 		_, err = goio.ReadFull(r, output)
 		out <- utils.ErrAnd[[]byte]{
