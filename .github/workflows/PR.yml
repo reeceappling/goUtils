@@ -15,6 +15,9 @@ jobs:
           #token: '' # TODO: FIX
           #ssh-key: '' # TODO:?
           # Relative path under $GITHUB_WORKSPACE to place the repository
+      - name: generate-mocks
+        run: go generate ./...
+        working-directory: goUtils
       - name: vet
         run: go vet ./...
         working-directory: goUtils

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/reeceappling/goUtils/v2/errorreference"
 	"github.com/reeceappling/goUtils/v2/io/awsclient"
-	recover2 "github.com/reeceappling/goUtils/v2/noCommit_recover"
+	recover2 "github.com/reeceappling/goUtils/v2/recover"
 	"github.com/reeceappling/goUtils/v2/utils"
 	"github.com/reeceappling/goUtils/v2/utils/channels"
 
