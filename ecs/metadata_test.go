@@ -58,7 +58,7 @@ func TestUnmarshallEmpty(t *testing.T) {
 }
 
 func TestInstanceId(t *testing.T) {
-	want := "last"
+	want := "c"
 	instId := TaskMetadata{TaskARN: "a/b/c"}.TaskId()
 	assert.Equal(t, instId, want)
 }

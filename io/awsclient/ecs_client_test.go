@@ -16,7 +16,7 @@ import (
 )
 
 var clusterName = "some-cluster"
-var taskArn = "arn-stuff-goes-here/some-task-id"
+var taskArn = "arn-str-goes-here/a-task-id"
 
 func TestStopThisTask(t *testing.T) {
 	ctx := context.Background()
