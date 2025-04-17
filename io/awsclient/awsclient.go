@@ -25,7 +25,7 @@ var s3Client S3Client
 func GetS3Client() S3Client {
 	if s3Client == nil {
 		if err := SetupWithDefault(context.Background()); err != nil {
-			panic(err)
+			panic("failed to setup s3 client with default: " + err.Error())
 		}
 	}
 	return s3Client

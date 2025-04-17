@@ -41,9 +41,13 @@ func setupMetadataServer(ctx context.Context) *httptest.Server {
 			Cluster: clusterName,
 			TaskARN: taskArn,
 		})
-		must(err)
+		if err != nil {
+			panic("marshal fail: " + err.Error())
+		}
 		_, err = fmt.Fprintln(w, string(bs))
-		must(err)
+		if err != nil {
+			panic("print fail: " + err.Error())
+		}
 	}))
 	must(os.Setenv("ECS_CONTAINER_METADATA_URI_V4", ts.URL))
 	return ts
