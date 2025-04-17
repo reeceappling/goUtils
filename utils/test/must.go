@@ -7,6 +7,6 @@ func Must[T any](t T, err error) T {
 
 func CheckErr(err error) {
 	if err != nil {
-		panic(err)
+		panic("Must panicked: " + err.Error())
 	}
 }
