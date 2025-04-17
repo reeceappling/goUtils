@@ -15,12 +15,12 @@ func init() {
 	var err error
 	cfg, err = config.LoadDefaultConfig(context.TODO())
 	if err != nil {
-		panic(err.Error())
+		panic("default config load failure: " + err.Error())
 	}
 
 	credentials, err = refreshCredentials(context.TODO())
 	if err != nil {
-		panic(err.Error())
+		panic("credentials refresh failure: " + err.Error())
 	}
 }
 
