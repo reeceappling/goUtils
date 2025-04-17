@@ -1,6 +1,8 @@
 # All dirs and files prefixed noCommit_
 noCommit_*
+/noCommit_*/
 **/noCommit_*
+**/noCommit_*/
 # All mocks dirs
 **/mocks
 **/mocks/

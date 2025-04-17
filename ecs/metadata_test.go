@@ -16,10 +16,10 @@ func TestEmptyEnvVar(t *testing.T) {
 }
 
 func TestFetchTaskMetadata(t *testing.T) {
-	want := "mock_task_arn"
+	want := "mock_taskArn"
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		_, _ = fmt.Fprintln(w, `{"TaskARN" : "mock_task_arn"}`)
+		_, _ = fmt.Fprintln(w, `{"TaskARN" : "mock_taskArn"}`)
 	}))
 	defer ts.Close()
 	err := os.Setenv("ECS_CONTAINER_METADATA_URI_V4", ts.URL)
@@ -34,7 +34,7 @@ func TestJsonParseFailure(t *testing.T) {
 	want := "invalid character 'b' looking for beginning of object key string"
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		_, _ = fmt.Fprintln(w, `{ badJson }`)
+		_, _ = fmt.Fprintln(w, `{ bad_Json }`)
 	}))
 	defer ts.Close()
 	err := os.Setenv("ECS_CONTAINER_METADATA_URI_V4", ts.URL)
@@ -59,7 +59,7 @@ func TestUnmarshallEmpty(t *testing.T) {
 
 func TestInstanceId(t *testing.T) {
 	want := "last"
-	instId := TaskMetadata{TaskARN: "first/second/last"}.TaskId()
+	instId := TaskMetadata{TaskARN: "a/b/c"}.TaskId()
 	assert.Equal(t, instId, want)
 }
 
