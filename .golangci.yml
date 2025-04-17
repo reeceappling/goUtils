@@ -14,14 +14,13 @@ linters:
     - gosec # inspects source code for security problems
 
   settings:
-    goconst:
-      ignore-strings: '%s=%s'
+#    goconst:
+#      ignore-strings: '%s=%s'
     perfsprint:
       # Optimizes into strings concatenation.
       # Default: true
       strconcat: false
-formatters:
-  default: none
-issues:
-output:
-severity:
+#formatters:
+#issues:
+#output:
+#severity:
