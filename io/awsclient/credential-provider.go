@@ -18,10 +18,10 @@ func init() {
 		panic("default config load failure: " + err.Error())
 	}
 
-	credentials, err = refreshCredentials(context.TODO())
-	if err != nil {
-		panic("credentials refresh failure: " + err.Error())
-	}
+	//credentials, err = refreshCredentials(context.TODO()) // TODO: REENABLE! NEED AWS TO RUN THIS
+	//if err != nil {
+	//	panic("credentials refresh failure: " + err.Error()) // TODO: FAILING HERE!
+	//}
 }
 
 func refreshCredentials(ctx context.Context) (aws.Credentials, error) {
