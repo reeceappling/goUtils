@@ -173,7 +173,7 @@ func (tClient LocalS3Client) GetObject(ctx context.Context, input *s3.GetObjectI
 	return output, nil
 }
 
-func (_ LocalS3Client) PutObject(context.Context, *s3.PutObjectInput, ...func(*s3.Options)) (*s3.PutObjectOutput, error) {
+func (LocalS3Client) PutObject(context.Context, *s3.PutObjectInput, ...func(*s3.Options)) (*s3.PutObjectOutput, error) {
 	return nil, errors.New("not implemented")
 }
 

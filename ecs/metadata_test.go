@@ -22,7 +22,7 @@ func TestFetchTaskMetadata(t *testing.T) {
 		_, _ = fmt.Fprintln(w, `{"TaskARN" : "mock_taskArn"}`)
 	}))
 	defer ts.Close()
-	err := os.Setenv("ECS_CONTAINER_METADATA_URI_V4", ts.URL)
+	_ = os.Setenv("ECS_CONTAINER_METADATA_URI_V4", ts.URL)
 	taskMeta, err := GetTaskMetadata()
 	if err != nil {
 		t.Log(err.Error())

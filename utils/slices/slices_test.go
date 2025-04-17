@@ -60,14 +60,14 @@ func TestSlices(t *testing.T) {
 		bRR := ReverseOf(aRR)
 		end := len(a) - 1
 		assert.Equal(t, len(a), len(b))
-		for i, _ := range a {
+		for i := range a {
 			require.Equal(t, a[i], b[end-i], fmt.Sprintf(`b should inverse a's %d index`, i))
 			require.Equal(t, b[i], aRR[end-i], fmt.Sprintf(`aRR should inverse b's %d index`, i))
 		}
 		shouldEqual := func(t *testing.T, c, d []int, idx int, cName, dName string) {
 			assert.Equal(t, c[idx], d[idx], fmt.Sprintf(`%s[%d] should equal %s[%d]`, cName, idx, dName, idx))
 		}
-		for i, _ := range a {
+		for i := range a {
 			shouldEqual(t, a, aRR, i, "a", "aRR")
 			shouldEqual(t, b, bRR, i, "b", "bRR")
 		}
@@ -79,7 +79,7 @@ func TestSlices(t *testing.T) {
 		act := Unique(a)
 		assert.Equal(t, lenA, len(a), "input length should not change")
 		assert.Equal(t, len(exp), len(act))
-		for i, _ := range exp {
+		for i := range exp {
 			assert.Equal(t, exp[i], act[i])
 		}
 	})

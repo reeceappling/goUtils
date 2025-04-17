@@ -15,7 +15,7 @@ func BenchmarkStateFileReader(b *testing.B) {
 	for idx := 1; idx < 64; idx <<= 1 {
 		b.Run(fmt.Sprint(idx), func(b *testing.B) {
 			ctx := context.Background()
-			awsclient.SetupWithDefault(ctx)
+			awsclient.SetupWithDefault(ctx) //nolint:errcheck
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				_, err := (&S3FileReader{
@@ -31,7 +31,7 @@ func BenchmarkStateFileReader(b *testing.B) {
 
 func BenchmarkS3FileReader(b *testing.B) {
 	ctx := context.Background()
-	awsclient.SetupWithDefault(ctx)
+	awsclient.SetupWithDefault(ctx) //nolint:errcheck
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
