@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 // RequestCopier keeps info for the last request that passed through it, and is an http.RoundTripper,
@@ -11,11 +12,13 @@ import (
 type RequestCopier struct {
 	Headers       http.Header
 	BodySent      []byte
+	URL           *url.URL
 	wrappedClient *http.Client
 }
 
 // RoundTrip meets the interface of http.RoundTripper. Copies the request before sending it to the wrapped client
 func (rc *RequestCopier) RoundTrip(req *http.Request) (res *http.Response, err error) {
+	rc.URL = req.URL // TODO: is it ok that this is still a pointer to the same underlying?
 	rc.Headers = req.Header.Clone()
 	rc.BodySent, err = io.ReadAll(req.Body)
 	if err != nil {

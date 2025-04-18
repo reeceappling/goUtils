@@ -38,3 +38,9 @@ func SliceNaNEqual[T BasicallyAFloat](t *testing.T, expected []T, actual []T) {
 		NaNEqual(t, expected[i], actual[i])
 	}
 }
+func DeepEqual[T any](t *testing.T, expected, actual T) {
+	// TODO: THIS
+	//typ := reflect.TypeFor[T]()
+	//kind := typ.Kind()
+
+}
