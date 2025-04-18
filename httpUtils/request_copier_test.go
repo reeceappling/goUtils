@@ -12,17 +12,22 @@ import (
 
 func TestRequestCopier(t *testing.T) {
 	expBody := "expBody"
+	expBodyReadCloser := io.NopCloser(strings.NewReader(expBody))
+	defer expBodyReadCloser.Close()
 	exp := &http.Request{
-		Method: "GET",
+		Method: http.MethodGet,
 		URL: &url.URL{
 			Scheme: "aScheme",
 		},
 		Header:  http.Header{"a": []string{"b"}},
-		Body:    io.NopCloser(strings.NewReader(expBody)),
+		Body:    expBodyReadCloser,
 		GetBody: func() (io.ReadCloser, error) { return io.NopCloser(strings.NewReader(expBody)), nil },
 	}
 	copier, client := NewCopyRoundTripperOnDefaultClient()
-	_, _ = client.Do(exp)
+	resp, _ := client.Do(exp)
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	assert.Equal(t, exp.URL, copier.URL)
 	assert.True(t, reflect.DeepEqual(exp.Header, copier.Headers))
 	assert.Equal(t, expBody, string(copier.BodySent))
