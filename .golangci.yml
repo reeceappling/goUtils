@@ -1,0 +1,26 @@
+version: "2"
+
+run:
+  timeout: 3m
+
+linters:
+  default: none
+  enable:
+    - bodyclose # checks whether HTTP response body is closed successfully
+    - errcheck # checking for unchecked errors, these unchecked errors can be critical bugs in some cases
+    - usestdlibvars # detects the possibility to use variables/constants from the Go standard library
+    - goconst # finds repeated strings that could be replaced by a constant
+    - perfsprint # checks that fmt.Sprintf can be replaced with a faster alternative
+    - gosec # inspects source code for security problems
+
+  settings:
+#    goconst:
+#      ignore-strings: '%s=%s'
+    perfsprint:
+      # Optimizes into strings concatenation.
+      # Default: true
+      strconcat: false
+#formatters:
+#issues:
+#output:
+#severity:

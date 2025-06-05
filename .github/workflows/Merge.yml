@@ -1,0 +1,39 @@
+name: Merged
+run-name: Merge - "${{ github.sha }}"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:1.24.0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: 'goUtils'
+      - name: vet
+        run: go vet ./...
+        working-directory: goUtils
+      - name: lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          working-directory: goUtils
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:1.24.0
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: 'goUtils'
+      #      - name: install dependencies
+      #        run: go install github.com/vektra/mockery/v2@v2.53.3
+      #      - name: generate-mocks
+      #        run: go generate ./...
+      #        working-directory: goUtils
+      - name: test
+        run: go test ./...
+        working-directory: goUtils
